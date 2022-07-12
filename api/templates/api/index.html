@@ -32,6 +32,7 @@
             {% if user.is_superuser %}
             <br>
             <a href="{% url 'force_update' %}">Примусово оновити</a>
+            <a href="{% url 'activate_second_thread' %}">Запустити другий потік (парсер)</a>
             {% else %}
             {% endif %}
         </div>

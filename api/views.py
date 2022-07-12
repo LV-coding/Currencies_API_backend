@@ -12,14 +12,17 @@ def index(request):
 
 def force_update(request):
     if request.user.is_superuser:
-        
-        global ready_to_start_parser
-        ready_to_start_parser = True
-
         get_currency_prices(0)
         return HttpResponse('Примусово оновлено всі дані!')
     else:
         return HttpResponseForbidden('Доступ заборонений')
+
+def activate_second_thread(request):
+    if request.user.is_superuser:
+        thread_2.start()
+        return HttpResponse('Другий потік запущено!')
+    else:
+        return HttpResponseForbidden('Доступ заборонений')    
 
 @require_GET
 def general_serialization(request):
@@ -87,12 +90,10 @@ def detailed_serialization(request, currency, city, place):
             }
         return JsonResponse(response)
         
-ready_to_start_parser = False
+
 
 def background_parser():
-    if ready_to_start_parser:
-        while True:
-            get_currency_prices(210)
+    while True:
+        get_currency_prices(210)
 
-thread_1 = Thread(target=background_parser, daemon=True)
-thread_1.start()
+thread_2 = Thread(target=background_parser, daemon=True)
