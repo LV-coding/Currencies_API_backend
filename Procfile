@@ -1,0 +1,1 @@
+web: gunicorn currency_API.wsgi --log-file -
