@@ -20,7 +20,15 @@ def get_currency_prices(sleep_time):
             }
             url = f'https://minfin.com.ua/ua/currency/auction/{price.price_place}/{price.price_currency}/buy/{price.price_city}/'
 
-            response = requests.get(url, headers=headers)
+            try:
+                response = requests.get(url, headers=headers, timeout=4)
+            except requests.exceptions.Timeout:
+                sleep(20)
+                continue
+            except:
+                sleep(1800)
+                continue
+
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
 

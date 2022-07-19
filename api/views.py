@@ -94,6 +94,6 @@ def detailed_serialization(request, currency, city, place):
 
 def background_parser():
     while True:
-        get_currency_prices(210)
+        get_currency_prices(180)
 
 thread_2 = Thread(target=background_parser, daemon=True)
