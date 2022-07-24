@@ -47,8 +47,7 @@
                 <p>Актуальний курс {{curr.currency_title}}:</p>
 
                 {% for result in result_of_search %}
-                <p>{{ result.price_city.city_title }}, {{ result.price_place.place_title }}: {{ result.price_bid }}/{{
-                    result.price_ask }}</p>
+                <p>{{ result.price_city.city_title }}, {{ result.price_place.place_title }}: {{ result.price_bid }}/{{result.price_ask }}</p>
                 {% endfor %}
                 {% endif %}
             </div>
