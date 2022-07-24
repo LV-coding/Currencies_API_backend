@@ -3,9 +3,10 @@ from django.shortcuts import render
 from .parser import get_currency_prices
 from .models import Price, Currency, City, Place
 from django.utils import timezone
-from threading import Thread
+from threading import Thread, active_count
 from django.utils.timezone import localtime 
 from django.views.decorators.http import require_GET
+from time import sleep
 
 def index(request):
     return render(request, 'api/index.html')
@@ -19,10 +20,17 @@ def force_update(request):
 
 def activate_second_thread(request):
     if request.user.is_superuser:
-        thread_2.start()
+        thread_5.start()
         return HttpResponse('Другий потік запущено!')
     else:
         return HttpResponseForbidden('Доступ заборонений')    
+
+def show_active_thread(request):
+    if request.user.is_superuser:
+        msg = f'Активних потоків: {active_count()}.\nРобота парсера: {thread_5.is_alive()}.'
+        return HttpResponse(msg)
+    else:
+        return HttpResponseForbidden('Доступ заборонений')  
 
 @require_GET
 def general_serialization(request):
@@ -94,6 +102,8 @@ def detailed_serialization(request, currency, city, place):
 
 def background_parser():
     while True:
-        get_currency_prices(180)
+        get_currency_prices(120)
 
-thread_2 = Thread(target=background_parser, daemon=True)
+
+thread_5 = Thread(target=background_parser, daemon=True)
+thread_5.start()
