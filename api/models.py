@@ -5,6 +5,7 @@ from django.utils.timezone import localtime
 class Currency(models.Model):
     currency_id = models.AutoField(primary_key=True)
     currency_name = models.CharField(max_length=3)
+    currency_title = models.CharField(max_length=64, default='')
 
     def __str__(self):
         return self.currency_name
@@ -13,6 +14,7 @@ class Currency(models.Model):
 class Place(models.Model):
     place_id = models.AutoField(primary_key=True)
     place_name = models.CharField(max_length=32)
+    place_title = models.CharField(max_length=64, default='')
 
     def __str__(self):
         return self.place_name
@@ -50,4 +52,7 @@ class Price(models.Model):
             'bid' : str(self.price_bid),
             'last_update' : str(localtime(self.price_last_updates))
         }
+
+    def spread_calc(self):
+        return self.price_ask - self.price_bid
 

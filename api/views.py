@@ -6,11 +6,27 @@ from django.utils import timezone
 from threading import Thread, active_count
 from django.utils.timezone import localtime 
 from django.views.decorators.http import require_GET
-from time import sleep
+
 
 def index(request):
-    return render(request, 'api/index.html')
+    currencies = Currency.objects.all()
+    if request.method == 'POST':
+        search = request.POST.get('currency')
+        curr = Currency.objects.get(currency_name=search)
+        result = Price.objects.filter(price_currency=curr)
 
+        return render(request, 'api/index.html', {
+        'currencies' : currencies,
+        'result_of_search': result,
+        'curr' : curr
+        })
+    else:
+        return render(request, 'api/index.html', {
+            'currencies' : currencies
+        })
+
+
+# for admins
 def force_update(request):
     if request.user.is_superuser:
         get_currency_prices(0)
@@ -18,6 +34,7 @@ def force_update(request):
     else:
         return HttpResponseForbidden('Доступ заборонений')
 
+# for admins
 def activate_second_thread(request):
     if request.user.is_superuser:
         thread_5.start()
@@ -25,6 +42,7 @@ def activate_second_thread(request):
     else:
         return HttpResponseForbidden('Доступ заборонений')    
 
+# for admins
 def show_active_thread(request):
     if request.user.is_superuser:
         msg = f'Активних потоків: {active_count()}.\nРобота парсера: {thread_5.is_alive()}.'

@@ -48,8 +48,10 @@ main {
             margin-bottom: 10px; 
         }
         &__example {
+            font-size: 17px;
+            font-weight: bold;
             &:hover {
-                color: red;
+                color: blue;
                 cursor: pointer;
             }
         }

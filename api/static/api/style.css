@@ -56,8 +56,13 @@ main .container__text {
   margin-bottom: 10px;
 }
 
+main .container__example {
+  font-size: 17px;
+  font-weight: bold;
+}
+
 main .container__example:hover {
-  color: red;
+  color: blue;
   cursor: pointer;
 }
 
