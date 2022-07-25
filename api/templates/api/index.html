@@ -30,24 +30,29 @@
                 середніх курсів у банках, обмінниках, приватних оголошеннях.
                 Приклади запитів наведені нижче.</p>
             <div onclick="show_1()" class="container__example" id="e1">Приклад запитів по API</div><br>
-            <div>
+            <div class="container__form">
                 <form action="{% url 'index' %}" method="post">
                     {% csrf_token %}
-                    <select name="currency" id="">
+                    <select name="currency" class="container__form__field" >
+                        {% if curr %}
+                        <option value="{{curr}}" selected>{{curr.currency_title}}</option>
+                        {% endif %}
+
                         {% for currency in currencies %}
                         <option value="{{ currency }}">{{ currency.currency_title }}</option>
                         {% endfor %}
-                        <input type="submit" value="Пошук">
+                        <input type="submit" value="Пошук" class="container__form__submit">
                     </select>
                 </form>
 
             </div>
             <div>
                 {% if result_of_search %}
-                <p>Актуальний курс {{curr.currency_title}}:</p>
+                <br>
+                <p>Актуальний курс валюти "{{curr.currency_title}}":</p>
 
                 {% for result in result_of_search %}
-                <p>{{ result.price_city.city_title }}, {{ result.price_place.place_title }}: {{ result.price_bid }}/{{result.price_ask }}</p>
+                <p>{{ result.price_city.city_title }}, {{ result.price_place.place_title }}: {{ result.price_bid}}/{{result.price_ask }}</p>
                 {% endfor %}
                 {% endif %}
             </div>

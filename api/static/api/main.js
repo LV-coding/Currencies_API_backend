@@ -4,3 +4,4 @@ function show_1() {
         "<span>GET: /api/[currency]</span>",
         "<span>GET: /api/[currency]/[city]/[place]</span>"].join('<br>');
 }
+

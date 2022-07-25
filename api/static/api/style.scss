@@ -55,6 +55,22 @@ main {
                 cursor: pointer;
             }
         }
+        &__form {
+            &__field, &__submit{
+                border-radius: 3px;
+                padding: 3px;
+                background-color: $main-color-2;
+                &:hover {
+                    background-color: black;
+                    color: $main-color-2;
+                    transition: 0.3s;
+                }
+            }
+            &__submit {
+                margin-left: 4px;
+            }
+        }
+        
     }
 }
 

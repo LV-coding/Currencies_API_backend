@@ -66,6 +66,23 @@ main .container__example:hover {
   cursor: pointer;
 }
 
+main .container__form__field, main .container__form__submit {
+  border-radius: 3px;
+  padding: 3px;
+  background-color: #edffde;
+}
+
+main .container__form__field:hover, main .container__form__submit:hover {
+  background-color: black;
+  color: #edffde;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+main .container__form__submit {
+  margin-left: 4px;
+}
+
 footer {
   position: fixed;
   bottom: 0px;

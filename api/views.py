@@ -14,9 +14,8 @@ def index(request):
         search = request.POST.get('currency')
         curr = Currency.objects.get(currency_name=search)
         result = Price.objects.filter(price_currency=curr)
-
         return render(request, 'api/index.html', {
-        'currencies' : currencies,
+        'currencies' : currencies.exclude(currency_name=search),
         'result_of_search': result,
         'curr' : curr
         })
