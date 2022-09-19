@@ -5,13 +5,11 @@ from time import sleep
 from django.utils import timezone
 
 
-
-
 def get_currency_prices(sleep_time):
     # if migrations is not exist
     try:
-        from .models import Price
-        prices = Price.objects.all()
+        from parser.models import Price
+        prices = Price.objects.filter(parser_status=True)
     except:
         prices = []
 
@@ -23,32 +21,32 @@ def get_currency_prices(sleep_time):
             headers = {
                 'User-Agent':ua.random
             }
-            url = f'https://minfin.com.ua/ua/currency/auction/{price.price_place}/{price.price_currency}/buy/{price.price_city}/'
+            url = f'https://minfin.com.ua/ua/currency/{price.city}/{price.currency}/'
 
             try:
                 response = requests.get(url, headers=headers, timeout=4)
-            except requests.exceptions.Timeout:
-                sleep(20)
-                continue
             except:
-                sleep(1800)
+                sleep(300)
                 continue
 
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
 
                 result = []
-                for i in soup.find_all('span', class_='Typography cardHeadlineL align'):
-                    index = i.text.find(',') + 3
-                    result.append(i.text[:index].replace(',','.'))
+                for i in soup.find_all('span', class_='mfm-posr'):
+                    index = i.text.find('.') + 3
+                    result.append(i.text[:index])
 
-                price.price_bid = float(result[0])
-                price.price_ask = float(result[1])
-                price.price_last_updates = timezone.now()
+                price.bank_price_bid = float(result[0])
+                price.bank_price_ask = float(result[1])
+                price.exchanger_price_bid = float(result[2])
+                price.exchanger_price_ask = float(result[3])
+                price.nbu_price = float(result[4])
+                price.last_update = timezone.now()
                 price.save()
 
                 sleep(sleep_time)
             else:
-                sleep(900)
+                sleep(300)
     else:
         sleep(60)
