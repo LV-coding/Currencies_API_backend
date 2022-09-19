@@ -6,5 +6,5 @@ This project parses currency price data in Ukraine and distributes them via API 
 [![PostreSQL](https://img.shields.io/badge/PostreSQL-14.5-green?style=for-the-badge)](https://www.postgresql.org/docs/)
 [![Beautiful Soup](https://img.shields.io/badge/BeautifulSoup-4.11.1-green?style=for-the-badge)](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
-Site is available at [LINK](https://currency-in-ukraine.herokuapp.com).
+Site is available at [LINK old version](https://currency-in-ukraine.herokuapp.com).
 
