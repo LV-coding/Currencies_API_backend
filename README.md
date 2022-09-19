@@ -1,0 +1,10 @@
+# Currency price in Ukraine
+This project parses currency price data in Ukraine and distributes them via API (json format).
+
+[![Django](https://img.shields.io/badge/Django-4.0.6-green?style=for-the-badge)](https://docs.djangoproject.com/en/4.0/)
+[![Django REST framework](https://img.shields.io/badge/DRF-3.13.1-green?style=for-the-badge)](https://www.django-rest-framework.org/)
+[![PostreSQL](https://img.shields.io/badge/PostreSQL-14.5-green?style=for-the-badge)](https://www.postgresql.org/docs/)
+[![Beautiful Soup](https://img.shields.io/badge/BeautifulSoup-4.11.1-green?style=for-the-badge)](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+Site is available at [LINK](https://currency-in-ukraine.herokuapp.com).
+
