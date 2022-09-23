@@ -19,6 +19,14 @@ class City(models.Model):
         return self.name
 
 
+class Place(models.Model):
+    name = models.CharField(_('Place name'), max_length=128) # english name in Minfin
+    title = models.CharField(_('Place title'), max_length=128) # user name
+
+    def __str__(self):
+        return self.name
+
+
 class Price(models.Model):
     currency = models.ForeignKey(
         Currency, 
@@ -32,43 +40,28 @@ class Price(models.Model):
         related_name='city', 
         verbose_name=_('City')
     )
-    bank_price_ask = models.DecimalField(
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        related_name='place',
+        verbose_name=_('Place')
+    )
+    price_ask = models.DecimalField(
         decimal_places=2, 
         max_digits=10, 
         blank=True,
         null=True,
-        verbose_name=_('Bank price ask'), 
+        verbose_name=_('Price ask'), 
     )
-    bank_price_bid = models.DecimalField(
+    price_bid = models.DecimalField(
         decimal_places=2, 
         max_digits=10, 
         blank=True, 
         null=True,
-        verbose_name=_('Bank price bid'), 
-    )
-    exchanger_price_ask = models.DecimalField(
-        decimal_places=2, 
-        max_digits=10, 
-        blank=True, 
-        null=True,
-        verbose_name=_('Exchanger price ask'), 
-    )
-    exchanger_price_bid = models.DecimalField(
-        decimal_places=2, 
-        max_digits=10, 
-        blank=True, 
-        null=True,
-        verbose_name=_('Exchanger price bid'), 
-    )
-    nbu_price = models.DecimalField(
-        decimal_places=4, 
-        max_digits=12, 
-        blank=True, 
-        null=True,
-        verbose_name=_('NBU price'), 
+        verbose_name=_('Price bid'), 
     )
     parser_status = models.BooleanField(
-        default=False, 
+        default=True, 
         verbose_name=_('Parser status')
     )
     last_update = models.DateTimeField(
@@ -77,15 +70,11 @@ class Price(models.Model):
     )
 
     class Meta:
-        ordering = ('last_update',)
+        ordering = ('-last_update',)
 
     def __str__(self):
         return f'{self.currency}, {self.city}'
 
     @property
-    def banks_prices(self):
-        return f'{self.bank_price_bid}/{self.bank_price_ask}'   
-
-    @property
-    def exchanger_prices(self):
-        return f'{self.exchanger_price_bid}/{self.exchanger_price_ask}'   
+    def prices(self):
+        return f'{self.price_bid}/{self.price_ask}'

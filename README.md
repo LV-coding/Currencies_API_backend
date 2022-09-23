@@ -16,6 +16,10 @@ GET: currency-in-ukraine.herokuapp.com/api/v1/currencies/<id>
 GET: currency-in-ukraine.herokuapp.com/api/v1/cities/
 GET: currency-in-ukraine.herokuapp.com/api/v1/cities/<id>
 
+# To check the available list of places
+GET: currency-in-ukraine.herokuapp.com/api/v1/places/
+GET: currency-in-ukraine.herokuapp.com/api/v1/places/<id>
+
 # To access currency prices
 GET: currency-in-ukraine.herokuapp.com/api/v1/prices/
 GET: currency-in-ukraine.herokuapp.com/api/v1/prices/<id>

@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/v1/currencies/', include('api.v1.routes_curr')),
     path('api/v1/cities/', include('api.v1.routes_cities')),
     path('api/v1/prices/', include('api.v1.routes_prices')),
+    path('api/v1/places/', include('api.v1.routes_places')),
 ]
 if DEBUG:
     urlpatterns.append(swagger_pattern)

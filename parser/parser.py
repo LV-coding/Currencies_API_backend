@@ -16,7 +16,7 @@ def get_currency_prices(sleep_time):
             headers = {
                 'User-Agent':ua.random
             }
-            url = f'https://minfin.com.ua/ua/currency/{price.city}/{price.currency}/'
+            url = f'https://minfin.com.ua/ua/currency/auction/{price.place}/{price.currency}/buy/{price.city}/'
 
             try:
                 response = requests.get(url, headers=headers, timeout=4)
@@ -28,17 +28,14 @@ def get_currency_prices(sleep_time):
                 soup = BeautifulSoup(response.content, 'html.parser')
 
                 result = []
-                for i in soup.find_all('span', class_='mfm-posr'):
-                    index = i.text.find('.') + 3
-                    result.append(i.text[:index])
-
-                price.bank_price_bid = float(result[0])
-                price.bank_price_ask = float(result[1])
-                price.exchanger_price_bid = float(result[2])
-                price.exchanger_price_ask = float(result[3])
-                price.nbu_price = float(result[4])
-                price.last_update = timezone.now()
-                price.save()
+                for i in soup.find_all('span', class_='Typography cardHeadlineL align'):
+                    index = i.text.find(',') + 3
+                    result.append(i.text[:index].replace(',','.'))
+                if result[0] != '0.00' and result[1] != '0.00':
+                    price.price_bid = float(result[0])
+                    price.price_ask = float(result[1])
+                    price.last_update = timezone.now()
+                    price.save()
 
                 sleep(sleep_time)
             else:
