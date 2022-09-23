@@ -30,3 +30,4 @@ def background_parser():
 
 
 thread_2 = Thread(target=background_parser, daemon=True)
+thread_2.start()
