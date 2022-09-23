@@ -3,17 +3,12 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from time import sleep
 from django.utils import timezone
-
+from parser.models import Price
 
 def get_currency_prices(sleep_time):
-    # if migrations is not exist
-    try:
-        from parser.models import Price
-        prices = Price.objects.filter(parser_status=True)
-    except:
-        prices = []
+ 
+    prices = Price.objects.filter(parser_status=True)
 
-    # check if value for parsing is exist
     if prices:
         for price in prices:
 
