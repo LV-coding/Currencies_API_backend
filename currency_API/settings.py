@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -146,3 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "OPTIONS",
+]
