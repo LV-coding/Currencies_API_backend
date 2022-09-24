@@ -26,7 +26,7 @@ def show_active_thread(request):
 
 def background_parser():
     while True:
-        get_currency_prices(120)
+        get_currency_prices(12)
 
 
 thread_2 = Thread(target=background_parser, daemon=True)

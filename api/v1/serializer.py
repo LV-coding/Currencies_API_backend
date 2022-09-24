@@ -1,23 +1,5 @@
-from parser.models import Price, Currency, City, Place
+from parser.models import Price
 from rest_framework import serializers
-
-
-class CurrencySerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Currency
-        fields = ('name', 'title')
-
-
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model= City
-        fields = ('name', 'title')
-
-
-class PlaceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Place
-        fields = ('name', 'title')
 
 
 class PriceSerializer(serializers.ModelSerializer):

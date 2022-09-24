@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Currency, City, Price, Place
+from .models import Price
 from django.utils.translation import gettext_lazy as _
 
 class PriceAdmin(admin.ModelAdmin):
@@ -24,6 +24,4 @@ class PriceAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(Price, PriceAdmin)
-admin.site.register(Currency)
-admin.site.register(City)
-admin.site.register(Place)
+

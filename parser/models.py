@@ -1,49 +1,23 @@
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-
-class Currency(models.Model):
-    name = models.CharField(_('Currency name'), max_length=3)
-    title = models.CharField(_('Currency title'), max_length=64)
-
-    def __str__(self):
-        return self.name
-
-
-class City(models.Model):
-    name = models.CharField(_('City name'), max_length=128) # english name in Minfin
-    title = models.CharField(_('City title'), max_length=128) # user name
-
-    def __str__(self):
-        return self.name
-
-
-class Place(models.Model):
-    name = models.CharField(_('Place name'), max_length=128) # english name in Minfin
-    title = models.CharField(_('Place title'), max_length=128) # user name
-
-    def __str__(self):
-        return self.name
+from parser.mchoices import CurrencyChoice, PlaceChoice, CityChoice
 
 
 class Price(models.Model):
-    currency = models.ForeignKey(
-        Currency, 
-        on_delete=models.CASCADE, 
-        related_name='currency', 
+    currency = models.CharField(
+        choices=CurrencyChoice.choices, 
+        max_length=64,
         verbose_name=_('Currency')
     )
-    city = models.ForeignKey(
-        City, 
-        on_delete=models.CASCADE, 
-        related_name='city', 
+    city = models.CharField(
+        choices=CityChoice.choices, 
+        max_length=64,
         verbose_name=_('City')
     )
-    place = models.ForeignKey(
-        Place,
-        on_delete=models.CASCADE,
-        related_name='place',
+    place = models.CharField(
+        choices=PlaceChoice.choices, 
+        max_length=64,
         verbose_name=_('Place')
     )
     price_ask = models.DecimalField(

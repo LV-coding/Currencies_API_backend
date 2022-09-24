@@ -21,7 +21,7 @@ def get_currency_prices(sleep_time):
             try:
                 response = requests.get(url, headers=headers, timeout=4)
             except:
-                sleep(300)
+                sleep(60)
                 continue
 
             if response.status_code == 200:
