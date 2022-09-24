@@ -8,14 +8,14 @@ class PriceAdmin(admin.ModelAdmin):
         'currency', 
         'city', 
         'place',
+        'prices',
         'parser_status', 
-        'last_update', 
-        'prices'
+        'last_update'
     )
     list_filter = (
-        'currency', 
         'city', 
         'place',
+        'currency',
         'parser_status'
     )
     fieldsets = (
